@@ -1,0 +1,20 @@
+DROP TABLE IF EXISTS Tab_Teste;
+CREATE TABLE Tab_Teste (
+col1 INT NOT NULL PRIMARY KEY,
+col2 INT NOT NULL);
+SELECT * FROM Tab_Teste;
+
+DROP PROCEDURE IF EXISTS nãoTratErroTransact;
+DELIMITER $$
+CREATE PROCEDURE nãoTratErroTransact()
+BEGIN
+START TRANSACTION;
+INSERT Tab_Teste VALUES (1,111) ;
+INSERT Tab_Teste VALUES (2,222) ;
+INSERT Tab_Teste VALUES (3,333) ;
+INSERT Tab_Teste VALUES (1,101) ;
+COMMIT; -- esse commando executa?
+END $$
+DELIMITER ;
+CALL nãoTratErroTransact();
+SELECT * FROM Tab_Teste;
